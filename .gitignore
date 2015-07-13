@@ -28,3 +28,7 @@ node_modules
 
 #IntelliJ
 .idea
+
+test.js
+spec.json
+app-annotated

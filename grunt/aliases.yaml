@@ -1,0 +1,6 @@
+default:
+  - 'graceful:ngAnnotate'
+  - 'graceful:uglify'
+  - 'copy'
+  - 'less'
+  - 'graceful:simple-watch'

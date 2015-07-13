@@ -6,7 +6,6 @@
   "authors": [
     "Mateusz Kmiecik <mk.chomik@gmail.com>"
   ],
-  "directory"
   "license": "MIT",
   "ignore": [
     "**/.*",
