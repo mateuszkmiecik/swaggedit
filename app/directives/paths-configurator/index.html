@@ -1,0 +1,11 @@
+<div ng-controller="pathsConfiguratorController as pcvm">
+
+    <h4>Paths</h4>
+
+    <div ng-repeat="p in pcvm.paths">
+        <strong>{{p}}:</strong>
+        <pre>{{pcvm.pathsDetails[p]}}</pre>
+
+    </div>
+
+</div>

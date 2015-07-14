@@ -1,20 +1,20 @@
-<div ng-controller="generalConfiguratorController">
+<div ng-controller="generalConfiguratorController as gcvm">
     <h4>General info</h4>
 
     <div class="row">
         <div class="input-field col s12">
-            <input id="swagger_version" type="text" ng-model="vm.spec.swagger" disabled/>
+            <input id="swagger_version" type="text" ng-model="gcvm.spec.swagger" disabled/>
             <label for="swagger_version">Swagger Version</label>
         </div>
     </div>
 
     <div class="row">
         <div class="col s6 input-field">
-            <input id="info_title" type="text" ng-model="vm.spec.info.title"/>
+            <input id="info_title" type="text" ng-model="gcvm.spec.info.title"/>
             <label for="info_title">Title</label>
         </div>
         <div class="col s6 input-field">
-            <input type="text" id="info_version" ng-model="vm.spec.info.version"/>
+            <input type="text" id="info_version" ng-model="gcvm.spec.info.version"/>
             <label for="info_version">Version</label>
         </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col s12 input-field">
             <textarea class="materialize-textarea" id="info_description" cols="30" rows="10"
-                      ng-model="vm.spec.info.description"></textarea>
+                      ng-model="gcvm.spec.info.description"></textarea>
             <label for="info_description">Description</label>
         </div>
     </div>

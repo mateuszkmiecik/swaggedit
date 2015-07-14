@@ -15,15 +15,24 @@
 </head>
 <body ng-app="swaggedit">
 
-<div ng-controller="mainController as vm">
-    <p ng-if="vm.loading">
+<div ng-controller="mainController as vmc">
+    <p ng-if="vmc.loading">
         <loader></loader>
         Preparing editor...
     </p>
 
-    <div ng-if="!vm.loading">
-        <general-configurator></general-configurator>
-        <pre>{{vm.spec|json}}</pre>
+    <div ng-if="!vmc.loading">
+
+        <div class="row">
+            <div class="col s6">
+                <general-configurator></general-configurator>
+                <paths-configurator></paths-configurator>
+            </div>
+            <div class="col s6">
+                Configuration tools
+                <pre>{{vmc.spec|json}}</pre>
+            </div>
+        </div>
     </div>
 </div>
 

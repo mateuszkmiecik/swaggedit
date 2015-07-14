@@ -7,14 +7,23 @@ angular.module('swaggedit').factory('specService', function($http, $q){
     return service;
 
     function init(){
-        return $http.get('/spec').then(handleSuccess, handleError).then(function(data){
+        var defer = $q.defer();
+        $http.get('/spec').then(handleSuccess, handleError).then(function(data){
+
             service.ready = true;
-            angular.copy(data, service.spec);
+            angular.copy(data, service.spec)
+            createDefaults();
+            defer.resolve(service.spec);
+
         });
+        return defer.promise;
     }
 
-    // private methods
-    // private methods
+    function createDefaults(){
+        // create defaults if no specified
+    }
+
+    // helper methods
     function handleError(response) {
         if (!angular.isObject(response.data) || !response.data.message) {
             return ( $q.reject("An unknown error occurred.") );
