@@ -1,0 +1,16 @@
+<div ng-controller="newPathFormController">
+
+    <h5>Add new path</h5>
+
+    <div class="row">
+        <div class="col s12 input-field">
+            <input type="text" ng-model="newPath.url" ng-change="checkPath()" />
+
+            <button class="btn" ng-if="!found" ng-click="add(newPath)">Add</button>
+
+            <button class="btn" ng-if="found" ng-click="edit(newPath)">Edit</button>
+            <p ng-if="found">Path: <em>{{newPath.url}}</em> found.</p>
+        </div>
+    </div>
+
+</div>

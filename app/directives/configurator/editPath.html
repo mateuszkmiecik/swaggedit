@@ -1,0 +1,23 @@
+<div ng-controller="editPathController">
+
+    <p>Edit path: <strong>{{current.path.name}}</strong></p>
+
+    <div class="card" ng-repeat="method in current.path.methods">
+        <div class="card-content">
+            <h5 class="card-small-title">{{method.name}}</h5>
+
+            <div class="input-field">
+                <input type="text"
+                       ng-model="method.details['x-swagger-router-controller']"/>
+                <label >x-swagger-router-controller</label>
+            </div>
+            <div class="input-field">
+                <input type="text" ng-model="method.details['operationId']"/>
+                <label>operationId</label>
+            </div>
+
+            <pre>{{method|json}}</pre>
+        </div>
+    </div>
+
+</div>

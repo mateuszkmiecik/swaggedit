@@ -1,11 +1,26 @@
-<div ng-controller="pathsConfiguratorController as pcvm">
+<div ng-controller="pathsConfiguratorController as pathsVM">
+    <button class="btn right" ng-click="pathsVM.newPath()">Add new</button>
+    <h4>Paths </h4>
 
-    <h4>Paths</h4>
+    <div ng-repeat="p in pathsVM.paths">
 
-    <div ng-repeat="p in pcvm.paths">
-        <strong>{{p}}:</strong>
-        <pre>{{pcvm.pathsDetails[p]}}</pre>
+        <div class="card grey lighten-4">
+            <div class="card-content">
 
+                <button class="right btn blue lighten-2" ng-click="pathsVM.editPath(p)">edit</button>
+                <h5>{{p.name}}</h5>
+
+                <hr/>
+
+                <ul class="collection">
+                    <li class="collection-item" ng-repeat="method in p.methods">
+                        <p><strong>{{method.name}}</strong>
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
     </div>
 
 </div>

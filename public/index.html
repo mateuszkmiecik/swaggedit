@@ -15,33 +15,16 @@
 </head>
 <body ng-app="swaggedit">
 
-<div ng-controller="mainController as vmc">
-    <p ng-if="vmc.loading">
-        <loader></loader>
-        Preparing editor...
-    </p>
-
-    <div ng-if="!vmc.loading">
-
-        <div class="row">
-            <div class="col s6">
-                <general-configurator></general-configurator>
-                <paths-configurator></paths-configurator>
-            </div>
-            <div class="col s6">
-                Configuration tools
-                <pre>{{vmc.spec|json}}</pre>
-            </div>
-        </div>
-    </div>
-</div>
+<ui-view></ui-view>
 
 <!-- scripts -->
 <script src="components/jquery/dist/jquery.min.js"></script>
 <script src="components/materialize/dist/js/materialize.min.js"></script>
+<script src="components/lodash/lodash.min.js"></script>
 
 <script src="components/angular/angular.min.js"></script>
 <script src="components/angular-materialize/src/angular-materialize.js"></script>
+<script src="components/angular-ui-router/release/angular-ui-router.min.js"></script>
 <script src="app/app.js"></script>
 
 </body>

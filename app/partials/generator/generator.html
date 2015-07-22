@@ -1,0 +1,62 @@
+<form>
+    <input type="text" ng-model="generator.newRoute.url"  ng-change="generator.parse(generator.newRoute)"
+            placeholder="write url here: [method] url (GET /url)"/>
+</form>
+
+<div class="row" ng-if="generator.urlName.length">
+    <div class="col s6">
+
+        <div class="row">
+            <div class="col s6 input-field">
+
+                <input type="text" ng-model="generator.object[generator.method]['x-swagger-router-controller']"/>
+                <label>x-swagger-router-controller</label>
+            </div>
+            <div class="col s6 input-field">
+
+                <input type="text" ng-model="generator.object[generator.method]['operationId']"/>
+                <label>operationId</label>
+            </div>
+        </div>
+
+
+
+
+        <h5>Parameters</h5>
+        <div ng-repeat="item in generator.obj.parameters">
+
+            <div class="row">
+                <div class="col s4 input-field">
+                    <input type="text" ng-model="item.name"/>
+                    <label>Param name</label>
+                </div>
+                <div class="col s4 input-field">
+                    <input type="text" ng-model="item.in"/>
+                    <label>In</label>
+                </div>
+                <div class="col s4"></div>
+            </div>
+
+            <!--<div class="row" ng-if="item.in == 'body'">-->
+                <!--<div class="col s8">-->
+                    <!--<table class="striped">-->
+                        <!--<tr ng-repeat="(prop, type) in item.schema.properties">-->
+                            <!--<td>-->
+                                <!--<input type="text" placeholder="name" ng-model="prop"/>-->
+                            <!--</td>-->
+                            <!--<td class="input-field">-->
+                                <!--<select class="browser-default" ng-model="type.type" ng-options="type as type for type in generator.TYPES">-->
+                                <!--</select>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                    <!--</table>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+
+    </div>
+    <div class="col s6">
+        <pre>"{{generator.urlName}}": {{generator.object | json}}</pre>
+    </div>
+</div>
+

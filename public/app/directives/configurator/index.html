@@ -1,0 +1,6 @@
+<div ng-controller="configuratorController as configVM">
+    <ng-include src="'app/directives/configurator/'+configVM.current.template+'.html'"></ng-include>
+
+    <button class="btn grey" ng-click="configVM.toggleSpec()">Show spec</button>
+    <pre ng-show="configVM.showSpec">{{configVM.spec | json}}</pre>
+</div>

@@ -6,9 +6,19 @@ angular.module('swaggedit')
             templateUrl: 'app/directives/paths-configurator/index.html'
         }
     })
-    .controller('pathsConfiguratorController', function(specService){
+    .controller('pathsConfiguratorController', function(specService, configuratorService, pathsParser){
         var vm = this;
 
-        vm.paths = Object.keys(specService.spec.paths);
-        vm.pathsDetails = specService.spec.paths;
+        var parsedPaths = pathsParser.parse(specService.spec.paths);
+        vm.paths = parsedPaths.paths;
+
+
+        vm.newPath = function(){
+            configuratorService.setConfig('newPathForm');
+        };
+
+        vm.editPath = function(path){
+            configuratorService.setPath(path);
+            configuratorService.setConfig('editPath');
+        }
     });
