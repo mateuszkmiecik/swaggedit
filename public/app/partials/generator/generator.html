@@ -1,6 +1,14 @@
+<div class="bigLeft">
+    <p class="input-field">
+        <input tabindex="-1" type="text" ng-model="generator.CURRENT_TAG" ng-change="generator.saveTag()"/>
+        <label>Current tag</label>
+    </p>
+</div>
+
+
 <form>
-    <input type="text" ng-model="generator.newRoute.url"  ng-change="generator.parse(generator.newRoute)"
-            placeholder="write url here: [method] url (GET /url)"/>
+    <input tabindex="1" type="text" ng-model="generator.newRoute.url" ng-change="generator.parse(generator.newRoute)"
+           placeholder="write url here: [method] url (GET /url)"/>
 </form>
 
 <div class="row" ng-if="generator.urlName.length">
@@ -20,9 +28,8 @@
         </div>
 
 
-
-
         <h5>Parameters</h5>
+
         <div ng-repeat="item in generator.obj.parameters">
 
             <div class="row">
@@ -34,29 +41,42 @@
                     <input type="text" ng-model="item.in"/>
                     <label>In</label>
                 </div>
-                <div class="col s4"></div>
+                <div class="col s4 input-field" ng-if="item.in == 'path'">
+                    <input type="text" ng-model="item.type"/>
+                </div>
             </div>
 
-            <!--<div class="row" ng-if="item.in == 'body'">-->
-                <!--<div class="col s8">-->
-                    <!--<table class="striped">-->
-                        <!--<tr ng-repeat="(prop, type) in item.schema.properties">-->
-                            <!--<td>-->
-                                <!--<input type="text" placeholder="name" ng-model="prop"/>-->
-                            <!--</td>-->
-                            <!--<td class="input-field">-->
-                                <!--<select class="browser-default" ng-model="type.type" ng-options="type as type for type in generator.TYPES">-->
-                                <!--</select>-->
-                            <!--</td>-->
-                        <!--</tr>-->
-                    <!--</table>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="row" ng-if="item.in == 'body'">
+                <div class="col s8">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="p in generator.params">
+                            <td>{{p.name}}</td>
+                            <td>{{p.type}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+
+                <form ng-submit="generator.addParam(generator.param)">
+                    <input type="text" class="form-control" ng-model="generator.param"
+                           placeholder="add new param [ name string ], [age integer]"/>
+                </form>
+                </p>
+            </div>
         </div>
 
     </div>
     <div class="col s6">
-        <pre>"{{generator.urlName}}": {{generator.object | json}}</pre>
+        <pre>"{{generator.urlName}}": {{generator.object | json}},</pre>
     </div>
 </div>
 

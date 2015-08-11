@@ -1,25 +1,40 @@
 angular.module('swaggedit')
-    .controller('generatorController', function () {
+    .controller('generatorController', function ($window) {
 
         var vm = this;
 
         vm.TYPES = ['string', 'integer'];
 
         vm.parse = parse;
+        vm.addParam = addParam;
+        vm.saveTag = saveTag;
 
+        vm.CURRENT_TAG = $window.localStorage.generatorTag || 'TAG';
 
         vm.urlName = '';
         vm.object = {};
 
+        vm.param = '';
+
         vm.newRoute = {};
-        vm.newRoute.url = 'put /asdf/{is}';
+        //vm.newRoute.url = 'put /asdf/{is}';
 
         parse(vm.newRoute);
 
+        var object, o;
+
+        vm.params = [];
+
+        var bodyIndex = 0;
 
         // implementation
 
+        function saveTag(){
+            $window.localStorage.generatorTag = vm.CURRENT_TAG;
+        }
+
         function parse(route) {
+            if(!route.url) return;
 
             vm.urlName = '';
 
@@ -46,11 +61,11 @@ angular.module('swaggedit')
             var urlParamsRegexp = /\{([a-zA-Z1-9]+)\}/g;
             var urlParams = getMatches(route.url, urlParamsRegexp);
 
-            var o = {};
-            var object = {
+            o = {};
+            object = {
                 'x-swagger-router-controller': controller,
                 'operationId': 'method',
-                'tags': ['TAG'],
+                'tags': [angular.copy(vm.CURRENT_TAG)],
                 "responses": {
                     "200": {
                         "description": "Return 200 status if success."
@@ -65,9 +80,10 @@ angular.module('swaggedit')
                     return {
                         "name": o,
                         "in": "path",
-                        "type": "string"
+                        "type": (o.toLowerCase().indexOf('id') >= 0)? "integer" : "string"
                     }
-                })
+                });
+                bodyIndex = urlParams.length;
             }
 
             if(method.toUpperCase() == 'PUT' || method.toUpperCase() == 'POST'){
@@ -86,6 +102,11 @@ angular.module('swaggedit')
                         }
                     }
                 };
+
+                vm.params = [];
+
+                bodyParam.schema.properties = parseParams();
+
                 object['parameters'] = object['parameters'] || [];
                 object['parameters'].push(bodyParam);
             }
@@ -100,6 +121,23 @@ angular.module('swaggedit')
             vm.obj = vm.object[method];
         }
 
+
+        function addParam(param){
+            param = param.trim().split(" ");
+            vm.param = '';
+            vm.params.push({name: param[0], type: param[1]});
+            object.parameters[bodyIndex].schema.properties = parseParams();
+        }
+
+        function parseParams(){
+            var o = {};
+            vm.params.forEach(function (p) {
+                o[p.name] = {
+                    "type": p.type
+                };
+            });
+            return o;
+        }
 
         function getMatches(string, regex) {
             var arr = [], match;
